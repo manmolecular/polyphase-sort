@@ -1,47 +1,47 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
 using namespace std;
 
-/*Filemanager для бинарной модификации, работа с файлами*/
+/*Filemanager РґР»СЏ Р±РёРЅР°СЂРЅРѕР№ РјРѕРґРёС„РёРєР°С†РёРё, СЂР°Р±РѕС‚Р° СЃ С„Р°Р№Р»Р°РјРё*/
 
 class filemanager
 {
 private:
-	vector <pair <fstream, string>> input, output;		//Заводим вектор пар "объект - имя"
-	int in_count, out_count;							//Счетчики для векторов
+	vector <pair <fstream, string>> input, output;		//Р—Р°РІРѕРґРёРј РІРµРєС‚РѕСЂ РїР°СЂ "РѕР±СЉРµРєС‚ - РёРјСЏ"
+	int in_count, out_count;							//РЎС‡РµС‚С‡РёРєРё РґР»СЏ РІРµРєС‚РѕСЂРѕРІ
 public:
-	filemanager(int in_count, int out_count);			//Конструктор
-	void fileswap();									//Своп векторов
-	void index_swap(int index_in, int index_out);		//Своп определенных векторов по индексу
-	int read(int index);								//Прочитать элемент из вектора
-	void write(int index, int value);					//Записать элемент в вектор
-	bool eof(int index);								//Проверка на конец файла
-	~filemanager();										//Деструктор
-	int get_in();										//Вернуть in счетчик
-	int get_out();										//Вернуть out счетчик
+	filemanager(int in_count, int out_count);			//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	void fileswap();									//РЎРІРѕРї РІРµРєС‚РѕСЂРѕРІ
+	void index_swap(int index_in, int index_out);		//РЎРІРѕРї РѕРїСЂРµРґРµР»РµРЅРЅС‹С… РІРµРєС‚РѕСЂРѕРІ РїРѕ РёРЅРґРµРєСЃСѓ
+	int read(int index);								//РџСЂРѕС‡РёС‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ РёР· РІРµРєС‚РѕСЂР°
+	void write(int index, int value);					//Р—Р°РїРёСЃР°С‚СЊ СЌР»РµРјРµРЅС‚ РІ РІРµРєС‚РѕСЂ
+	bool eof(int index);								//РџСЂРѕРІРµСЂРєР° РЅР° РєРѕРЅРµС† С„Р°Р№Р»Р°
+	~filemanager();										//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+	int get_in();										//Р’РµСЂРЅСѓС‚СЊ in СЃС‡РµС‚С‡РёРє
+	int get_out();										//Р’РµСЂРЅСѓС‚СЊ out СЃС‡РµС‚С‡РёРє
 };
 
 filemanager::filemanager(int _in_count, int _out_count)
 {
-	in_count = _in_count;			/* забираем из аргументов функции (fixed bug)*/
+	in_count = _in_count;			/* Р·Р°Р±РёСЂР°РµРј РёР· Р°СЂРіСѓРјРµРЅС‚РѕРІ С„СѓРЅРєС†РёРё (fixed bug)*/
 	out_count = _out_count;
-	input.reserve(in_count);		/* резервируем место в векторах заранее */
+	input.reserve(in_count);		/* СЂРµР·РµСЂРІРёСЂСѓРµРј РјРµСЃС‚Рѕ РІ РІРµРєС‚РѕСЂР°С… Р·Р°СЂР°РЅРµРµ */
 	output.reserve(out_count);
 	/* vs10 - long long, vs14+ - int */
 	for (long long i = 0; i < in_count; i++)
 	{
 		string file_name = "file_input_" + to_string(i) + ".txt";
 		input.push_back(pair <fstream, string>(fstream(file_name, ios::out | ios::binary), file_name));
-		/* пушим объект fstream и сохраняем имя file_name */
+		/* РїСѓС€РёРј РѕР±СЉРµРєС‚ fstream Рё СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ file_name */
 	}
 	for (long long i = 0; i < out_count; i++)
 	{
 		string file_name = "file_output_" + to_string(i) + ".txt";
 		output.push_back(pair <fstream, string>(fstream(file_name, ios::out | ios::binary), file_name));
-		/* пушим объект fstream и сохраняем имя file_name */
+		/* РїСѓС€РёРј РѕР±СЉРµРєС‚ fstream Рё СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ file_name */
 	}
 }
 
@@ -80,7 +80,7 @@ int filemanager::read(int index)
 void filemanager::write(int index, int value)
 {
 	//output[index].first << " " << value;
-	output[index].first.write((char*)&value, sizeof(int)); // выводим массив в файл 
+	output[index].first.write((char*)&value, sizeof(int)); // РІС‹РІРѕРґРёРј РјР°СЃСЃРёРІ РІ С„Р°Р№Р» 
 }
 
 bool filemanager::eof(int index)

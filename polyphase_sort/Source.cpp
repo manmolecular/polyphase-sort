@@ -1,14 +1,14 @@
-#include "Polyphase_merge.h"
+п»ї#include "Polyphase_merge.h"
 #include <ctime>
 #define input_name "input.txt"
 #define output_name "output.txt"
 #define debug_file "debug_info.txt"
-const int amount_of_numbers = 100000;															//Количество значений для генерации
-const int amount_of_files = 55;																	//Количество задействованных файлов
-const bool debug_mode = 0;																		//1 - с отладочной информацией, 0 - без неё
+const int amount_of_numbers = 100000;															//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·РЅР°С‡РµРЅРёР№ РґР»СЏ РіРµРЅРµСЂР°С†РёРё
+const int amount_of_files = 55;																	//РљРѕР»РёС‡РµСЃС‚РІРѕ Р·Р°РґРµР№СЃС‚РІРѕРІР°РЅРЅС‹С… С„Р°Р№Р»РѕРІ
+const bool debug_mode = 0;																		//1 - СЃ РѕС‚Р»Р°РґРѕС‡РЅРѕР№ РёРЅС„РѕСЂРјР°С†РёРµР№, 0 - Р±РµР· РЅРµС‘
 using namespace std;
 
-/* Проверка для класса Фибоначчи */
+/* РџСЂРѕРІРµСЂРєР° РґР»СЏ РєР»Р°СЃСЃР° Р¤РёР±РѕРЅР°С‡С‡Рё */
 void fibonacci_class_check()
 {
 	fibonacci vector(5);
@@ -26,7 +26,7 @@ void fibonacci_class_check()
 	}
 }
 
-/* Проверка для класса polyphase */
+/* РџСЂРѕРІРµСЂРєР° РґР»СЏ РєР»Р°СЃСЃР° polyphase */
 void polyphase_class_check()
 {
 	polyphase temp;
@@ -39,7 +39,7 @@ void polyphase_class_check()
 	temp.show_vector_series();
 }
 
-/* Показать все выходные файлы */
+/* РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ РІС‹С…РѕРґРЅС‹Рµ С„Р°Р№Р»С‹ */
 void show_output_files(polyphase &sorting)
 {
 	for (int i = 0; i < amount_of_files - 1; i++)
@@ -50,7 +50,7 @@ void show_output_files(polyphase &sorting)
 	}
 }
 
-/* Функция сортировки */
+/* Р¤СѓРЅРєС†РёСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё */
 void sort_function(filemanager &manager, polyphase &sorting, bool show_output, clock_t &start_dist, clock_t &end_dist, clock_t &start_merge, clock_t &end_merge)
 {
 	start_dist = clock();
@@ -58,19 +58,19 @@ void sort_function(filemanager &manager, polyphase &sorting, bool show_output, c
 	end_dist = clock();
 	if (show_output)
 	{
-		cout << "Файлы содержат (первое распределение): " << endl;
+		cout << "Р¤Р°Р№Р»С‹ СЃРѕРґРµСЂР¶Р°С‚ (РїРµСЂРІРѕРµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ): " << endl;
 		show_output_files(sorting);
 	}
-	/* Работаем с пустыми сериями */
+	/* Р Р°Р±РѕС‚Р°РµРј СЃ РїСѓСЃС‚С‹РјРё СЃРµСЂРёСЏРјРё */
 	int min = manager.output[0].empty_series;
 	for (int i = 1; i < amount_of_files - 1; i++)
 	{
 		if (min > manager.output[i].empty_series)
 		{
-			min = manager.output[i].empty_series;						//Забираем минимальное число пустых серий
+			min = manager.output[i].empty_series;						//Р—Р°Р±РёСЂР°РµРј РјРёРЅРёРјР°Р»СЊРЅРѕРµ С‡РёСЃР»Рѕ РїСѓСЃС‚С‹С… СЃРµСЂРёР№
 		}
 	}
-	if (min != 0)														//Если не ноль - то выполняем дальше, иначе пропускаем
+	if (min != 0)														//Р•СЃР»Рё РЅРµ РЅРѕР»СЊ - С‚Рѕ РІС‹РїРѕР»РЅСЏРµРј РґР°Р»СЊС€Рµ, РёРЅР°С‡Рµ РїСЂРѕРїСѓСЃРєР°РµРј
 	{
 		for (int i = 0; i < amount_of_files - 1; i++)
 		{
@@ -79,23 +79,23 @@ void sort_function(filemanager &manager, polyphase &sorting, bool show_output, c
 		manager.input[0].empty_series += min;
 	}
 	manager.fileswap();
-	cout << endl << "Сортировка... ";
+	cout << endl << "РЎРѕСЂС‚РёСЂРѕРІРєР°... ";
 	start_merge = clock();
 	sorting.merge(manager);
 	end_merge = clock();
-	cout << "Завершена" << endl;
+	cout << "Р—Р°РІРµСЂС€РµРЅР°" << endl;
 	manager.fileswap();
 }
 
-/* Отладочная информация */
+/* РћС‚Р»Р°РґРѕС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ */
 void view_debug_info(polyphase &sorting)
 {
-	cout << "Файл " << input_name << " содержит: " << endl;
+	cout << "Р¤Р°Р№Р» " << input_name << " СЃРѕРґРµСЂР¶РёС‚: " << endl;
 	int quantity = sorting.show_binary_file_eof(input_name);
-	cout << "Количество сгенерированных значений:" << quantity << endl << endl;
-	cout << "Проверка серий: " << endl;
+	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹С… Р·РЅР°С‡РµРЅРёР№:" << quantity << endl << endl;
+	cout << "РџСЂРѕРІРµСЂРєР° СЃРµСЂРёР№: " << endl;
 	quantity = sorting.amount_of_series(input_name);
-	cout << "Количество серий: " << quantity << endl << endl;
+	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЃРµСЂРёР№: " << quantity << endl << endl;
 }
 
 int main()
@@ -105,44 +105,44 @@ int main()
 	polyphase sorting;
 	clock_t start_generate, end_generate, start_dist, end_dist, start_merge, end_merge;
 		start_generate = clock();
-		sorting.generate(input_name, amount_of_numbers, 1000);															//1000 - модуль генерации рандома (верхняя граница)
+		sorting.generate(input_name, amount_of_numbers, 1000);															//1000 - РјРѕРґСѓР»СЊ РіРµРЅРµСЂР°С†РёРё СЂР°РЅРґРѕРјР° (РІРµСЂС…РЅСЏСЏ РіСЂР°РЅРёС†Р°)
 		end_generate = clock();
 		if (debug_mode)
 		{
-			view_debug_info(sorting);																					//Отображаем дебаг-инфу, если mode == 1
+			view_debug_info(sorting);																					//РћС‚РѕР±СЂР°Р¶Р°РµРј РґРµР±Р°Рі-РёРЅС„Сѓ, РµСЃР»Рё mode == 1
 		}
-		sort_function(manager, sorting, debug_mode, start_dist, end_dist, start_merge, end_merge);						//1 - отладочная информация, 0 - без неё
+		sort_function(manager, sorting, debug_mode, start_dist, end_dist, start_merge, end_merge);						//1 - РѕС‚Р»Р°РґРѕС‡РЅР°СЏ РёРЅС„РѕСЂРјР°С†РёСЏ, 0 - Р±РµР· РЅРµС‘
 
-		/* Запись результата сортировки в файл*/
+		/* Р—Р°РїРёСЃСЊ СЂРµР·СѓР»СЊС‚Р°С‚Р° СЃРѕСЂС‚РёСЂРѕРІРєРё РІ С„Р°Р№Р»*/
 		fstream f;
 		f.open(output_name, ios::out);
 		int length = manager.read(0);
 		for (int i = 0; i < length; i++)
 		{
-			f << " " << manager.read(0);																				//Записываем всё из input-a в файл
+			f << " " << manager.read(0);																				//Р—Р°РїРёСЃС‹РІР°РµРј РІСЃС‘ РёР· input-a РІ С„Р°Р№Р»
 		}
 		f.close();
 		cout << endl;
 
-		/* Вывод на экран */
+		/* Р’С‹РІРѕРґ РЅР° СЌРєСЂР°РЅ */
 		sorting.check_sort(output_name);
 		float gen_t = ((double)end_generate - start_generate) / ((double)CLOCKS_PER_SEC);
 		float dist_t = ((double)end_dist - start_dist) / ((double)CLOCKS_PER_SEC);
 		float merge_t = ((double)end_merge - start_merge) / ((double)CLOCKS_PER_SEC);
-		cout << "Количество элементов: " << amount_of_numbers << endl;
-		cout << "Количество файлов: " << amount_of_files << endl;
-		cout << "Время генерации (generate): " << gen_t << " сек." << endl;
-		cout << "Время первого распределения (first_dist): " << dist_t << " сек." << endl;
-		cout << "Время сортировки (merge): " << merge_t << " сек." << endl << endl;
+		cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ: " << amount_of_numbers << endl;
+		cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ С„Р°Р№Р»РѕРІ: " << amount_of_files << endl;
+		cout << "Р’СЂРµРјСЏ РіРµРЅРµСЂР°С†РёРё (generate): " << gen_t << " СЃРµРє." << endl;
+		cout << "Р’СЂРµРјСЏ РїРµСЂРІРѕРіРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ (first_dist): " << dist_t << " СЃРµРє." << endl;
+		cout << "Р’СЂРµРјСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё (merge): " << merge_t << " СЃРµРє." << endl << endl;
 
-		/* Вывод информации в файл*/
+		/* Р’С‹РІРѕРґ РёРЅС„РѕСЂРјР°С†РёРё РІ С„Р°Р№Р»*/
 		fstream debug;
-		debug.open(debug_file, ios::out | ios::app);																	//app - дописывать в файл
-		debug << "Количество элементов: " << amount_of_numbers << endl;
-		debug << "Количество файлов: " << amount_of_files << endl;
-		debug << "Время генерации (generate): " << gen_t << " сек." << endl;
-		debug << "Время первого распределения (first_dist): " << dist_t << " сек." << endl;
-		debug << "Время сортировки (merge): " << merge_t << " сек." << endl << endl;
+		debug.open(debug_file, ios::out | ios::app);																	//app - РґРѕРїРёСЃС‹РІР°С‚СЊ РІ С„Р°Р№Р»
+		debug << "РљРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ: " << amount_of_numbers << endl;
+		debug << "РљРѕР»РёС‡РµСЃС‚РІРѕ С„Р°Р№Р»РѕРІ: " << amount_of_files << endl;
+		debug << "Р’СЂРµРјСЏ РіРµРЅРµСЂР°С†РёРё (generate): " << gen_t << " СЃРµРє." << endl;
+		debug << "Р’СЂРµРјСЏ РїРµСЂРІРѕРіРѕ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ (first_dist): " << dist_t << " СЃРµРє." << endl;
+		debug << "Р’СЂРµРјСЏ СЃРѕСЂС‚РёСЂРѕРІРєРё (merge): " << merge_t << " СЃРµРє." << endl << endl;
 		debug.close();
 	return 0;
 }

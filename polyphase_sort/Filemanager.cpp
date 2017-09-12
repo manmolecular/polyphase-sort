@@ -1,25 +1,25 @@
-#include "Filemanager.h"
+п»ї#include "Filemanager.h"
 
-/* Реализация класса файлового менеджера */
+/* Р РµР°Р»РёР·Р°С†РёСЏ РєР»Р°СЃСЃР° С„Р°Р№Р»РѕРІРѕРіРѕ РјРµРЅРµРґР¶РµСЂР° */
 
 filemanager::filemanager(int _in_count, int _out_count)
 {
-	in_count = _in_count;			/* забираем из аргументов функции (fixed bug)*/
+	in_count = _in_count;			/* Р·Р°Р±РёСЂР°РµРј РёР· Р°СЂРіСѓРјРµРЅС‚РѕРІ С„СѓРЅРєС†РёРё (fixed bug)*/
 	out_count = _out_count;
-	input.reserve(in_count);		/* резервируем место в векторах заранее */
+	input.reserve(in_count);		/* СЂРµР·РµСЂРІРёСЂСѓРµРј РјРµСЃС‚Рѕ РІ РІРµРєС‚РѕСЂР°С… Р·Р°СЂР°РЅРµРµ */
 	output.reserve(out_count);
 	/* vs10 - long long, vs14+ - int */
 	for (long long i = 0; i < in_count; i++)
 	{
 		string file_name = "file_input_" + to_string(i) + ".txt";
 		input.push_back(file_definition(file_name));
-		/* пушим объект fstream и сохраняем имя file_name */
+		/* РїСѓС€РёРј РѕР±СЉРµРєС‚ fstream Рё СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ file_name */
 	}
 	for (long long i = 0; i < out_count; i++)
 	{
 		string file_name = "file_output_" + to_string(i) + ".txt";
 		output.push_back(file_definition(file_name));
-		/* пушим объект fstream и сохраняем имя file_name */
+		/* РїСѓС€РёРј РѕР±СЉРµРєС‚ fstream Рё СЃРѕС…СЂР°РЅСЏРµРј РёРјСЏ file_name */
 	}
 }
 
@@ -36,7 +36,7 @@ void filemanager::fileswap()
 		output[i].file_object.open(output[i].filename, ios::in | ios::binary);
 	}
 	input.swap(output);
-	//oh, hi - свапаем счетчики
+	//oh, hi - СЃРІР°РїР°РµРј СЃС‡РµС‚С‡РёРєРё
 	swap(in_count, out_count);
 }
 
@@ -58,7 +58,7 @@ int filemanager::read(int index)
 
 void filemanager::write(int index, int value)
 {
-	output[index].file_object.write((char*)&value, sizeof(int));		// выводим массив в файл 
+	output[index].file_object.write((char*)&value, sizeof(int));		// РІС‹РІРѕРґРёРј РјР°СЃСЃРёРІ РІ С„Р°Р№Р» 
 }
 
 bool filemanager::eof(int index)
@@ -80,7 +80,7 @@ filemanager::~filemanager()
 {
 	for (int i = 0; i < in_count; i++)
 	{
-		input[i].file_object.close();				//Закрываем и удаляем за собой лишние файлы
+		input[i].file_object.close();				//Р—Р°РєСЂС‹РІР°РµРј Рё СѓРґР°Р»СЏРµРј Р·Р° СЃРѕР±РѕР№ Р»РёС€РЅРёРµ С„Р°Р№Р»С‹
 		remove(input[i].filename.c_str());
 	}
 	for (int i = 0; i < out_count; i++)
@@ -90,7 +90,7 @@ filemanager::~filemanager()
 	}
 }
 
-/* Инициализируем структуру*/
+/* РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ*/
 filemanager::file_definition::file_definition(string _filename)
 {
 	filename = _filename;
@@ -103,6 +103,6 @@ void filemanager::file_definition::swap(file_definition &rhs)
 {
 	file_object.swap(rhs.file_object);
 	filename.swap(rhs.filename);
-	std::swap(real_series, rhs.real_series);		//Совпадение имен - это плохо
+	std::swap(real_series, rhs.real_series);		//РЎРѕРІРїР°РґРµРЅРёРµ РёРјРµРЅ - СЌС‚Рѕ РїР»РѕС…Рѕ
 	std::swap(empty_series, rhs.empty_series);
 }

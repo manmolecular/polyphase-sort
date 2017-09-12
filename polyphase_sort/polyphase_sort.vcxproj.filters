@@ -32,13 +32,13 @@
     <ClInclude Include="Filemanager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
-    <ClInclude Include="Polyphase_merge.h">
-      <Filter>Заголовочные файлы</Filter>
-    </ClInclude>
     <ClInclude Include="Old_backup_Filemanager.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Old_backup_Polyphase_merge.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Polyphase_merge.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

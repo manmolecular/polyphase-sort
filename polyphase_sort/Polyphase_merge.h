@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Filemanager.h"
 #include "Fibonacci.h"
 #include <string>
@@ -8,27 +8,27 @@
 #include <map>
 using namespace std;
 
-/* Класс многофазной сортировки */
+/* РљР»Р°СЃСЃ РјРЅРѕРіРѕС„Р°Р·РЅРѕР№ СЃРѕСЂС‚РёСЂРѕРІРєРё */
 
 class polyphase
 {
 	public:
-		vector <int> position_series;											//Вектор, хранящий позиции "обрывов" серий
+		vector <int> position_series;											//Р’РµРєС‚РѕСЂ, С…СЂР°РЅСЏС‰РёР№ РїРѕР·РёС†РёРё "РѕР±СЂС‹РІРѕРІ" СЃРµСЂРёР№
 		polyphase() {};
-		void generate(string filename, int amount, int random_border);			//Генератор случайных чисел
-		int show_binary_file_eof(string filename);								//Вывод бинарного файла (до конца файла)
-		int show_binary_file_length(string filename);							//Вывод бинарного файла (на основе длины серии)
-		int amount_of_series(string filename);									//Возврат числа серий
-		void show_vector_series();												//Вывод позиций "обрывов" серий
-		void show_txt_file(string filename);									//Вывод текстового файла
-		int check_sort(string filename);										//Проверка сортировки
-		void first_distribution(string filename, filemanager &manager);			//Первое распределение
-		void merge(filemanager &manager);										//Сортировка
-		bool eof(string filename);												//Проверка на пустоту для бинарника
+		void generate(string filename, int amount, int random_border);			//Р“РµРЅРµСЂР°С‚РѕСЂ СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
+		int show_binary_file_eof(string filename);								//Р’С‹РІРѕРґ Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р° (РґРѕ РєРѕРЅС†Р° С„Р°Р№Р»Р°)
+		int show_binary_file_length(string filename);							//Р’С‹РІРѕРґ Р±РёРЅР°СЂРЅРѕРіРѕ С„Р°Р№Р»Р° (РЅР° РѕСЃРЅРѕРІРµ РґР»РёРЅС‹ СЃРµСЂРёРё)
+		int amount_of_series(string filename);									//Р’РѕР·РІСЂР°С‚ С‡РёСЃР»Р° СЃРµСЂРёР№
+		void show_vector_series();												//Р’С‹РІРѕРґ РїРѕР·РёС†РёР№ "РѕР±СЂС‹РІРѕРІ" СЃРµСЂРёР№
+		void show_txt_file(string filename);									//Р’С‹РІРѕРґ С‚РµРєСЃС‚РѕРІРѕРіРѕ С„Р°Р№Р»Р°
+		int check_sort(string filename);										//РџСЂРѕРІРµСЂРєР° СЃРѕСЂС‚РёСЂРѕРІРєРё
+		void first_distribution(string filename, filemanager &manager);			//РџРµСЂРІРѕРµ СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµ
+		void merge(filemanager &manager);										//РЎРѕСЂС‚РёСЂРѕРІРєР°
+		bool eof(string filename);												//РџСЂРѕРІРµСЂРєР° РЅР° РїСѓСЃС‚РѕС‚Сѓ РґР»СЏ Р±РёРЅР°СЂРЅРёРєР°
 };
 
-/* Первое разделение с учетом того, что файл - бинарный.
-Todo: "перебрать" класс фибоначчи и перевести функции make_order_vector и make_dist_mass в одну функцию*/
+/* РџРµСЂРІРѕРµ СЂР°Р·РґРµР»РµРЅРёРµ СЃ СѓС‡РµС‚РѕРј С‚РѕРіРѕ, С‡С‚Рѕ С„Р°Р№Р» - Р±РёРЅР°СЂРЅС‹Р№.
+Todo: "РїРµСЂРµР±СЂР°С‚СЊ" РєР»Р°СЃСЃ С„РёР±РѕРЅР°С‡С‡Рё Рё РїРµСЂРµРІРµСЃС‚Рё С„СѓРЅРєС†РёРё make_order_vector Рё make_dist_mass РІ РѕРґРЅСѓ С„СѓРЅРєС†РёСЋ*/
 
 inline bool polyphase::eof(string filename)
 {
@@ -41,31 +41,31 @@ inline bool polyphase::eof(string filename)
 
 void polyphase::merge(filemanager &manager)
 {
-	multimap <int, int> buffer;													//Упорядоченный по значениям контейнер: <значение, номер файла>
-	int count = manager.get_in();												//Количество файлов на входе
-	int *length_of_series = new int[count];										//Массив длин серий
-	int sum_of_series = 2;														//Общая сумма серий
-	int current_length;															//Текущая длина
+	multimap <int, int> buffer;													//РЈРїРѕСЂСЏРґРѕС‡РµРЅРЅС‹Р№ РїРѕ Р·РЅР°С‡РµРЅРёСЏРј РєРѕРЅС‚РµР№РЅРµСЂ: <Р·РЅР°С‡РµРЅРёРµ, РЅРѕРјРµСЂ С„Р°Р№Р»Р°>
+	int count = manager.get_in();												//РљРѕР»РёС‡РµСЃС‚РІРѕ С„Р°Р№Р»РѕРІ РЅР° РІС…РѕРґРµ
+	int *length_of_series = new int[count];										//РњР°СЃСЃРёРІ РґР»РёРЅ СЃРµСЂРёР№
+	int sum_of_series = 2;														//РћР±С‰Р°СЏ СЃСѓРјРјР° СЃРµСЂРёР№
+	int current_length;															//РўРµРєСѓС‰Р°СЏ РґР»РёРЅР°
 
 	while (sum_of_series > 1)
 	{
 		current_length = 0;
 		for (int i = 0; i < count; i++)
 		{
-			if (manager.input[i].empty_series)									//Если есть пустые серии
+			if (manager.input[i].empty_series)									//Р•СЃР»Рё РµСЃС‚СЊ РїСѓСЃС‚С‹Рµ СЃРµСЂРёРё
 			{
 				length_of_series[i] = 0;
 				manager.input[i].empty_series--;
 			}
 			else
 			{
-				if (!manager.input[i].real_series)								//Если нет настоящих серий
+				if (!manager.input[i].real_series)								//Р•СЃР»Рё РЅРµС‚ РЅР°СЃС‚РѕСЏС‰РёС… СЃРµСЂРёР№
 				{
 					manager.index_swap(i, 0);
-					if (manager.input[i].empty_series)							//Смотрим наличие пустых серий уже в новом файле
+					if (manager.input[i].empty_series)							//РЎРјРѕС‚СЂРёРј РЅР°Р»РёС‡РёРµ РїСѓСЃС‚С‹С… СЃРµСЂРёР№ СѓР¶Рµ РІ РЅРѕРІРѕРј С„Р°Р№Р»Рµ
 					{
 						i--;
-						continue;												//Начинаем заного, игнорируем последующие операторы
+						continue;												//РќР°С‡РёРЅР°РµРј Р·Р°РЅРѕРіРѕ, РёРіРЅРѕСЂРёСЂСѓРµРј РїРѕСЃР»РµРґСѓСЋС‰РёРµ РѕРїРµСЂР°С‚РѕСЂС‹
 					}
 				}
 				length_of_series[i] = manager.read(i);
@@ -78,7 +78,7 @@ void polyphase::merge(filemanager &manager)
 		manager.write(0, current_length);
 		manager.output[0].real_series++;
 
-		auto buf = buffer.begin();							//нельзя int, не сущ. преобр
+		auto buf = buffer.begin();							//РЅРµР»СЊР·СЏ int, РЅРµ СЃСѓС‰. РїСЂРµРѕР±СЂ
 		while (!buffer.empty())
 		{
 			buf = buffer.begin();
@@ -90,7 +90,7 @@ void polyphase::merge(filemanager &manager)
 			buffer.erase(buf);
 		}
 
-		/* Считаем сумму серий */
+		/* РЎС‡РёС‚Р°РµРј СЃСѓРјРјСѓ СЃРµСЂРёР№ */
 		sum_of_series = 0;
 		for (int i = 0; i < count; i++)
 		{
@@ -102,62 +102,62 @@ void polyphase::merge(filemanager &manager)
 
 void polyphase::first_distribution(string filename, filemanager &manager)
 {
-	fstream f;																	//Открываем сгенерированный input файл
+	fstream f;																	//РћС‚РєСЂС‹РІР°РµРј СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹Р№ input С„Р°Р№Р»
 	f.open(filename, ios::in | ios::binary);
-	int counter = manager.get_out();											//Забираем число выходных файлов
-	fibonacci fib_vector(counter);												//Создаем ряд Фибоначчи порядка counter
-	fib_vector.make_order_vector();												//Создаем первоначальный ряд фибоначчи
+	int counter = manager.get_out();											//Р—Р°Р±РёСЂР°РµРј С‡РёСЃР»Рѕ РІС‹С…РѕРґРЅС‹С… С„Р°Р№Р»РѕРІ
+	fibonacci fib_vector(counter);												//РЎРѕР·РґР°РµРј СЂСЏРґ Р¤РёР±РѕРЅР°С‡С‡Рё РїРѕСЂСЏРґРєР° counter
+	fib_vector.make_order_vector();												//РЎРѕР·РґР°РµРј РїРµСЂРІРѕРЅР°С‡Р°Р»СЊРЅС‹Р№ СЂСЏРґ С„РёР±РѕРЅР°С‡С‡Рё
 	fib_vector.make_dist_mass();
-	int current = 0;															//Текущая позиция
-	int next = 0;																//Следующая за текущей
-	int current_file = 0;														//Текущий файл
-	int length = 0;																//Длина серии
-	streampos start_pos = manager.output[current_file].file_object.tellg();		//Начальная позиция (здесь = 0)
-	streampos end_pos;															//Конечная позиция
-	manager.output[current_file].real_series++;									//Увеличиваем серии на один (т.к. начинаем)
-	manager.write(current_file, 0);												//Резервируем место под запись длины серии
+	int current = 0;															//РўРµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ
+	int next = 0;																//РЎР»РµРґСѓСЋС‰Р°СЏ Р·Р° С‚РµРєСѓС‰РµР№
+	int current_file = 0;														//РўРµРєСѓС‰РёР№ С„Р°Р№Р»
+	int length = 0;																//Р”Р»РёРЅР° СЃРµСЂРёРё
+	streampos start_pos = manager.output[current_file].file_object.tellg();		//РќР°С‡Р°Р»СЊРЅР°СЏ РїРѕР·РёС†РёСЏ (Р·РґРµСЃСЊ = 0)
+	streampos end_pos;															//РљРѕРЅРµС‡РЅР°СЏ РїРѕР·РёС†РёСЏ
+	manager.output[current_file].real_series++;									//РЈРІРµР»РёС‡РёРІР°РµРј СЃРµСЂРёРё РЅР° РѕРґРёРЅ (С‚.Рє. РЅР°С‡РёРЅР°РµРј)
+	manager.write(current_file, 0);												//Р РµР·РµСЂРІРёСЂСѓРµРј РјРµСЃС‚Рѕ РїРѕРґ Р·Р°РїРёСЃСЊ РґР»РёРЅС‹ СЃРµСЂРёРё
 	//f >> next;
 	f.read((char *)&next, sizeof(int));
 
-	int *diff = new int[counter];												//Разница между текущим и фибоначчивским распределением
+	int *diff = new int[counter];												//Р Р°Р·РЅРёС†Р° РјРµР¶РґСѓ С‚РµРєСѓС‰РёРј Рё С„РёР±РѕРЅР°С‡С‡РёРІСЃРєРёРј СЂР°СЃРїСЂРµРґРµР»РµРЅРёРµРј
 	diff[0] = 0;
 	for (int i = 1; i < counter; i++)
 	{
 		diff[i] = 1;															//[0 1 1 1 1 1 1 1 ...]
 	}
-	bool flag = 0;																//Флаг выхода
+	bool flag = 0;																//Р¤Р»Р°Рі РІС‹С…РѕРґР°
 	while (true)
 	{
-		/* запись серии */
+		/* Р·Р°РїРёСЃСЊ СЃРµСЂРёРё */
 		while (current <= next)
 		{
-			manager.write(current_file, next);									//Пишем в текущий файл взятый элемент
-			length++;															//Увеличиваем длину серии
-			current = next;														//Делаем текущим уже взятый
+			manager.write(current_file, next);									//РџРёС€РµРј РІ С‚РµРєСѓС‰РёР№ С„Р°Р№Р» РІР·СЏС‚С‹Р№ СЌР»РµРјРµРЅС‚
+			length++;															//РЈРІРµР»РёС‡РёРІР°РµРј РґР»РёРЅСѓ СЃРµСЂРёРё
+			current = next;														//Р”РµР»Р°РµРј С‚РµРєСѓС‰РёРј СѓР¶Рµ РІР·СЏС‚С‹Р№
 			if (!f.eof())
 			{
-				//f >> next;													//Если файл не кончился - берём следующий
+				//f >> next;													//Р•СЃР»Рё С„Р°Р№Р» РЅРµ РєРѕРЅС‡РёР»СЃСЏ - Р±РµСЂС‘Рј СЃР»РµРґСѓСЋС‰РёР№
 				f.read((char *)&next, sizeof(int));
 			}
 			else
 			{
-				flag = !flag;													//Выходим из этого и внешнего цикла полностью
+				flag = !flag;													//Р’С‹С…РѕРґРёРј РёР· СЌС‚РѕРіРѕ Рё РІРЅРµС€РЅРµРіРѕ С†РёРєР»Р° РїРѕР»РЅРѕСЃС‚СЊСЋ
 				break;
 			}
 		}
 		if (flag == 1) break;
 
-		/* Меняем файлы */
-		end_pos = manager.output[current_file].file_object.tellg();				//Запоминаем текущую (последнюю) позицию в файле
-		manager.output[current_file].file_object.seekg(start_pos);				//Перемещаемся на начало файла
-		manager.write(current_file, length);									//Записываем длину (вместо зарезервированного нуля)
-		manager.output[current_file].file_object.seekg(end_pos);				//Возвращаемся на сохраненную позицию ранее конечн. позицию
+		/* РњРµРЅСЏРµРј С„Р°Р№Р»С‹ */
+		end_pos = manager.output[current_file].file_object.tellg();				//Р—Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰СѓСЋ (РїРѕСЃР»РµРґРЅСЋСЋ) РїРѕР·РёС†РёСЋ РІ С„Р°Р№Р»Рµ
+		manager.output[current_file].file_object.seekg(start_pos);				//РџРµСЂРµРјРµС‰Р°РµРјСЃСЏ РЅР° РЅР°С‡Р°Р»Рѕ С„Р°Р№Р»Р°
+		manager.write(current_file, length);									//Р—Р°РїРёСЃС‹РІР°РµРј РґР»РёРЅСѓ (РІРјРµСЃС‚Рѕ Р·Р°СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРЅРѕРіРѕ РЅСѓР»СЏ)
+		manager.output[current_file].file_object.seekg(end_pos);				//Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РЅР° СЃРѕС…СЂР°РЅРµРЅРЅСѓСЋ РїРѕР·РёС†РёСЋ СЂР°РЅРµРµ РєРѕРЅРµС‡РЅ. РїРѕР·РёС†РёСЋ
 
-//Фибоначчи (старый кусок кода - обычное разделение)
+//Р¤РёР±РѕРЅР°С‡С‡Рё (СЃС‚Р°СЂС‹Р№ РєСѓСЃРѕРє РєРѕРґР° - РѕР±С‹С‡РЅРѕРµ СЂР°Р·РґРµР»РµРЅРёРµ)
 //int i = 0;
 //while (i < counter)
 //{
-//	current_file = (current_file + 1) % counter;													//Забираем файлы по модулю
+//	current_file = (current_file + 1) % counter;													//Р—Р°Р±РёСЂР°РµРј С„Р°Р№Р»С‹ РїРѕ РјРѕРґСѓР»СЋ
 //	if ((manager.output[current_file].real_series) < (fib_vector.mass[current_file]))				//UNABLE TO READ MEMORY !!!! - fixed
 //	{
 //		manager.output[current_file].real_series++;
@@ -165,7 +165,7 @@ void polyphase::first_distribution(string filename, filemanager &manager)
 //	}
 //	i++;
 //}
-//if (i == counter)																					//Если прошлись по всем файлам - генерируем новый фибоначчи массив
+//if (i == counter)																					//Р•СЃР»Рё РїСЂРѕС€Р»РёСЃСЊ РїРѕ РІСЃРµРј С„Р°Р№Р»Р°Рј - РіРµРЅРµСЂРёСЂСѓРµРј РЅРѕРІС‹Р№ С„РёР±РѕРЅР°С‡С‡Рё РјР°СЃСЃРёРІ
 //{
 //	fib_vector.make_order_vector();
 //	fib_vector.make_dist_mass();
@@ -173,7 +173,7 @@ void polyphase::first_distribution(string filename, filemanager &manager)
 //	manager.output[current_file].real_series++;
 //}
 
-		/* Для распределения фибоначчи по таблице */
+		/* Р”Р»СЏ СЂР°СЃРїСЂРµРґРµР»РµРЅРёСЏ С„РёР±РѕРЅР°С‡С‡Рё РїРѕ С‚Р°Р±Р»РёС†Рµ */
 		if ((current_file < counter - 1) && ((diff[current_file] + 1) == diff[current_file + 1]))
 		{
 			current_file++;
@@ -196,15 +196,15 @@ void polyphase::first_distribution(string filename, filemanager &manager)
 			manager.output[current_file].real_series++;
 		}
 
-		/* Сохраняем место для записи длины серии */
-		start_pos = manager.output[current_file].file_object.tellg();			//Делаем стартовой позицией текущую
-		manager.write(current_file, 0);											//Резервируем место для длины серии
-		length = 0;																//Обнуляем длину серии
+		/* РЎРѕС…СЂР°РЅСЏРµРј РјРµСЃС‚Рѕ РґР»СЏ Р·Р°РїРёСЃРё РґР»РёРЅС‹ СЃРµСЂРёРё */
+		start_pos = manager.output[current_file].file_object.tellg();			//Р”РµР»Р°РµРј СЃС‚Р°СЂС‚РѕРІРѕР№ РїРѕР·РёС†РёРµР№ С‚РµРєСѓС‰СѓСЋ
+		manager.write(current_file, 0);											//Р РµР·РµСЂРІРёСЂСѓРµРј РјРµСЃС‚Рѕ РґР»СЏ РґР»РёРЅС‹ СЃРµСЂРёРё
+		length = 0;																//РћР±РЅСѓР»СЏРµРј РґР»РёРЅСѓ СЃРµСЂРёРё
 
-		manager.write(current_file, next);										//Пишем элемент из следующей серии
+		manager.write(current_file, next);										//РџРёС€РµРј СЌР»РµРјРµРЅС‚ РёР· СЃР»РµРґСѓСЋС‰РµР№ СЃРµСЂРёРё
 		length++;
 		current = next;
-		if (!f.eof())															//Если файл не кончился - считываем следующий элемент	
+		if (!f.eof())															//Р•СЃР»Рё С„Р°Р№Р» РЅРµ РєРѕРЅС‡РёР»СЃСЏ - СЃС‡РёС‚С‹РІР°РµРј СЃР»РµРґСѓСЋС‰РёР№ СЌР»РµРјРµРЅС‚	
 		{
 			//f >> next;
 			f.read((char *)&next, sizeof(int));
@@ -214,13 +214,13 @@ void polyphase::first_distribution(string filename, filemanager &manager)
 			break;
 		}
 	}
-	end_pos = manager.output[current_file].file_object.tellg();				//Запоминаем текущую (последнюю) позицию
-	manager.output[current_file].file_object.seekg(start_pos);				//Перемещаемся на позицию, зарез. ранее - заменяем 0 на длину серии
-	manager.write(current_file, length);									//Записываем длину
-	manager.output[current_file].file_object.seekg(end_pos);				//Возвращаемся на сохраненную позицию
+	end_pos = manager.output[current_file].file_object.tellg();				//Р—Р°РїРѕРјРёРЅР°РµРј С‚РµРєСѓС‰СѓСЋ (РїРѕСЃР»РµРґРЅСЋСЋ) РїРѕР·РёС†РёСЋ
+	manager.output[current_file].file_object.seekg(start_pos);				//РџРµСЂРµРјРµС‰Р°РµРјСЃСЏ РЅР° РїРѕР·РёС†РёСЋ, Р·Р°СЂРµР·. СЂР°РЅРµРµ - Р·Р°РјРµРЅСЏРµРј 0 РЅР° РґР»РёРЅСѓ СЃРµСЂРёРё
+	manager.write(current_file, length);									//Р—Р°РїРёСЃС‹РІР°РµРј РґР»РёРЅСѓ
+	manager.output[current_file].file_object.seekg(end_pos);				//Р’РѕР·РІСЂР°С‰Р°РµРјСЃСЏ РЅР° СЃРѕС…СЂР°РЅРµРЅРЅСѓСЋ РїРѕР·РёС†РёСЋ
 	for (int i = 0; i < counter; i++)
 	{
-		manager.output[i].empty_series = diff[i];							//Пишем кол-во пустых серий из массива разниц
+		manager.output[i].empty_series = diff[i];							//РџРёС€РµРј РєРѕР»-РІРѕ РїСѓСЃС‚С‹С… СЃРµСЂРёР№ РёР· РјР°СЃСЃРёРІР° СЂР°Р·РЅРёС†
 	}
 	f.close();
 }
@@ -229,12 +229,12 @@ inline int polyphase::show_binary_file_length(string filename)
 {
 	if (eof(filename))
 	{
-		cout << "[пустой]" << endl;
+		cout << "[РїСѓСЃС‚РѕР№]" << endl;
 	}
 	else
 	{
 		fstream f;
-		f.open(filename, ios::in | ios::binary);		//не забывать binary
+		f.open(filename, ios::in | ios::binary);		//РЅРµ Р·Р°Р±С‹РІР°С‚СЊ binary
 		int temp;
 		int length;
 		while (!f.eof())
@@ -285,14 +285,14 @@ inline int polyphase::check_sort(string filename)
 		counter++;
 		if (temp1 > temp2)
 		{
-			cout << "Ошибка сортировки: " << counter << " позиция";
+			cout << "РћС€РёР±РєР° СЃРѕСЂС‚РёСЂРѕРІРєРё: " << counter << " РїРѕР·РёС†РёСЏ";
 			flag = 0;
 		}
 		temp1 = temp2;
 	}
 	if (flag = true)
 	{
-		cout << "Сортировка верна: " << counter << " элементов было отсортировано";
+		cout << "РЎРѕСЂС‚РёСЂРѕРІРєР° РІРµСЂРЅР°: " << counter << " СЌР»РµРјРµРЅС‚РѕРІ Р±С‹Р»Рѕ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРѕ";
 	}
 	cout << endl;
 	return flag;
@@ -301,7 +301,7 @@ inline int polyphase::check_sort(string filename)
 inline int polyphase::show_binary_file_eof(string filename)
 {
 	fstream f;
-	f.open(filename, ios::in | ios::binary);		//не забывать binary
+	f.open(filename, ios::in | ios::binary);		//РЅРµ Р·Р°Р±С‹РІР°С‚СЊ binary
 	int temp;
 	int quantity = 0;
 	while (!f.eof())
@@ -313,7 +313,7 @@ inline int polyphase::show_binary_file_eof(string filename)
 	}
 	cout << endl;
 	f.close();
-	return quantity;								//Возвращаем число сгенерированных чисел (число чисел, lol)
+	return quantity;								//Р’РѕР·РІСЂР°С‰Р°РµРј С‡РёСЃР»Рѕ СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅРЅС‹С… С‡РёСЃРµР» (С‡РёСЃР»Рѕ С‡РёСЃРµР», lol)
 }
 
 inline void polyphase::show_txt_file(string filename)
@@ -330,9 +330,9 @@ inline void polyphase::show_txt_file(string filename)
 	f.close();
 }
 
-/* Определение конца серии + позиции серии
-! Не основан на использовании бинарников - можно кормить обычными файлами
-(с учетом изменения read/write на <</>> ) */
+/* РћРїСЂРµРґРµР»РµРЅРёРµ РєРѕРЅС†Р° СЃРµСЂРёРё + РїРѕР·РёС†РёРё СЃРµСЂРёРё
+! РќРµ РѕСЃРЅРѕРІР°РЅ РЅР° РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРё Р±РёРЅР°СЂРЅРёРєРѕРІ - РјРѕР¶РЅРѕ РєРѕСЂРјРёС‚СЊ РѕР±С‹С‡РЅС‹РјРё С„Р°Р№Р»Р°РјРё
+(СЃ СѓС‡РµС‚РѕРј РёР·РјРµРЅРµРЅРёСЏ read/write РЅР° <</>> ) */
 int polyphase::amount_of_series(string filename)
 {
 	fstream f;
@@ -341,13 +341,13 @@ int polyphase::amount_of_series(string filename)
 	int current = 0;
 	int next = 0;
 	position_series.push_back(f.tellg());
-	cout << "Текущая позиция: " << 1 + f.tellg() << " :: ";
+	cout << "РўРµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ: " << 1 + f.tellg() << " :: ";
 	f.read((char *)&current, sizeof(int));
-	cout << "Серия №" << quantity << " начинается со значения: " << current << endl;
+	cout << "РЎРµСЂРёСЏ в„–" << quantity << " РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃРѕ Р·РЅР°С‡РµРЅРёСЏ: " << current << endl;
 	f.read((char *)&next, sizeof(int));
 	while (!f.eof())
 	{
-		/*если всё верно*/
+		/*РµСЃР»Рё РІСЃС‘ РІРµСЂРЅРѕ*/
 		if (next > current)
 		{
 			f.read((char *)&current, sizeof(int));
@@ -355,9 +355,9 @@ int polyphase::amount_of_series(string filename)
 		else
 		{
 			quantity++;
-			cout << "Текущая позиция: " << f.tellg() / sizeof(int) << " :: ";
+			cout << "РўРµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ: " << f.tellg() / sizeof(int) << " :: ";
 			position_series.push_back(f.tellg());
-			cout << "Серия №" << quantity << " начинается со значения: " << next << endl;
+			cout << "РЎРµСЂРёСЏ в„–" << quantity << " РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃРѕ Р·РЅР°С‡РµРЅРёСЏ: " << next << endl;
 			f.read((char *)&current, sizeof(int));
 		}
 		if (current > next)
@@ -367,9 +367,9 @@ int polyphase::amount_of_series(string filename)
 		else
 		{
 			quantity++;
-			cout << "Текущая позиция: " << f.tellg() / sizeof(int) << " :: ";
+			cout << "РўРµРєСѓС‰Р°СЏ РїРѕР·РёС†РёСЏ: " << f.tellg() / sizeof(int) << " :: ";
 			position_series.push_back(f.tellg());
-			cout << "Серия №" << quantity << " начинается со значения: " << current << endl;
+			cout << "РЎРµСЂРёСЏ в„–" << quantity << " РЅР°С‡РёРЅР°РµС‚СЃСЏ СЃРѕ Р·РЅР°С‡РµРЅРёСЏ: " << current << endl;
 			f.read((char *)&next, sizeof(int));
 		}
 	}

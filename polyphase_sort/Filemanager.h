@@ -1,34 +1,34 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <string>
 #include <fstream>
 #include <iostream>
 using namespace std;
 
-/*Filemanager для бинарной модификации, работа с файлами*/
+/*Filemanager РґР»СЏ Р±РёРЅР°СЂРЅРѕР№ РјРѕРґРёС„РёРєР°С†РёРё, СЂР°Р±РѕС‚Р° СЃ С„Р°Р№Р»Р°РјРё*/
 
 class filemanager
 {
 	private:
-		struct file_definition								//Определям файл через структуру
+		struct file_definition								//РћРїСЂРµРґРµР»СЏРј С„Р°Р№Р» С‡РµСЂРµР· СЃС‚СЂСѓРєС‚СѓСЂСѓ
 		{
-			fstream file_object;							//Сам файл-о-объект
-			string filename;								//Имя файла
-			int real_series;								//Количество реальных серий
-			int empty_series;								//Количество пустых серий
-			file_definition(string _filename);				//Начальная инициализация
-			void swap(file_definition &rhs);				//Свой своп
+			fstream file_object;							//РЎР°Рј С„Р°Р№Р»-Рѕ-РѕР±СЉРµРєС‚
+			string filename;								//РРјСЏ С„Р°Р№Р»Р°
+			int real_series;								//РљРѕР»РёС‡РµСЃС‚РІРѕ СЂРµР°Р»СЊРЅС‹С… СЃРµСЂРёР№
+			int empty_series;								//РљРѕР»РёС‡РµСЃС‚РІРѕ РїСѓСЃС‚С‹С… СЃРµСЂРёР№
+			file_definition(string _filename);				//РќР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ
+			void swap(file_definition &rhs);				//РЎРІРѕР№ СЃРІРѕРї
 		};
 	public:
-		vector <file_definition> input, output;				//Заводим вектор пар "объект - имя"
-		int in_count, out_count;							//Счетчики для векторов
-		filemanager(int in_count, int out_count);			//Конструктор
-		void fileswap();									//Своп векторов
-		void index_swap(int index_in, int index_out);		//Своп определенных векторов по индексу
-		int read(int index);								//Прочитать элемент из вектора
-		void write(int index, int value);					//Записать элемент в вектор
-		bool eof(int index);								//Проверка на конец файла
-		~filemanager();										//Деструктор
-		int get_in();										//Вернуть in счетчик
-		int get_out();										//Вернуть out счетчик
+		vector <file_definition> input, output;				//Р—Р°РІРѕРґРёРј РІРµРєС‚РѕСЂ РїР°СЂ "РѕР±СЉРµРєС‚ - РёРјСЏ"
+		int in_count, out_count;							//РЎС‡РµС‚С‡РёРєРё РґР»СЏ РІРµРєС‚РѕСЂРѕРІ
+		filemanager(int in_count, int out_count);			//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+		void fileswap();									//РЎРІРѕРї РІРµРєС‚РѕСЂРѕРІ
+		void index_swap(int index_in, int index_out);		//РЎРІРѕРї РѕРїСЂРµРґРµР»РµРЅРЅС‹С… РІРµРєС‚РѕСЂРѕРІ РїРѕ РёРЅРґРµРєСЃСѓ
+		int read(int index);								//РџСЂРѕС‡РёС‚Р°С‚СЊ СЌР»РµРјРµРЅС‚ РёР· РІРµРєС‚РѕСЂР°
+		void write(int index, int value);					//Р—Р°РїРёСЃР°С‚СЊ СЌР»РµРјРµРЅС‚ РІ РІРµРєС‚РѕСЂ
+		bool eof(int index);								//РџСЂРѕРІРµСЂРєР° РЅР° РєРѕРЅРµС† С„Р°Р№Р»Р°
+		~filemanager();										//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
+		int get_in();										//Р’РµСЂРЅСѓС‚СЊ in СЃС‡РµС‚С‡РёРє
+		int get_out();										//Р’РµСЂРЅСѓС‚СЊ out СЃС‡РµС‚С‡РёРє
 };
